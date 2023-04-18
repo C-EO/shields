@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: core/base-service/base-svg-scraping</title>
+    <title>JSDoc: Tutorial: authentication</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,104 +17,27 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: core/base-service/base-svg-scraping</h1>
+    <h1 class="page-title">Tutorial: authentication</h1>
 
-    
-
-
-
-
-<section>
+    <section>
 
 <header>
     
+
+    <h2>authentication</h2>
 </header>
 
 <article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base-svg-scraping.js.html">core/base-service/base-svg-scraping.js</a>, <a href="core_base-service_base-svg-scraping.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-core_base-service_base-svg-scraping-BaseSvgScrapingService.html">BaseSvgScrapingService</a></dt>
-            <dd></dd>
-        </dl>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+    <h1>Badges Requiring Authentication</h1>
+<p>There are two patterns for how shields.io can interact with APIs that require auth:</p>
+<ol>
+<li>We can store one token at the service level which allows us to read public data for everyone's projects, or lift a rate limit. If you are looking for information on configuring credentials for a self-hosted instance see https://github.com/badges/shields/blob/master/doc/server-secrets.md</li>
+<li>If every user needs to provide their own token, that has to be a token which can be passed to us as a query param in the badge URL. This means it must be possible to generate a key or token that can be exposed in a public github README public with no negative consequences. (i.e: that key or token only exposes public metrics).</li>
+</ol>
+<p>If every user would need to supply their own token for some particular service and it is only possible to generate a key or token which allows access to sensitive data or allows write access to resources, we can't provide an integration for this service.</p>
 </article>
 
 </section>
-
-
-
 
 </div>
 

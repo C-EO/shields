@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: services/downloads</title>
+    <title>JSDoc: Module: services/pipenv-helpers</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: services/downloads</h1>
+    <h1 class="page-title">Module: services/pipenv-helpers</h1>
 
     
 
@@ -33,6 +33,8 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description"><p>Common functions and utilities for tasks related to pipenv</p></div>
         
 
         
@@ -67,7 +69,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_downloads.js.html">services/downloads.js</a>, <a href="services_downloads.js.html#line1">line 1</a>
+        <a href="services_pipenv-helpers.js.html">services/pipenv-helpers.js</a>, <a href="services_pipenv-helpers.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -96,6 +98,155 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~isDependency"><span class="type-signature">(inner, constant) </span>isDependency<span class="type-signature"> :Joi</span></h4>
+
+
+
+
+<div class="description">
+    <p>Joi schema for validating dependency.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Joi</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_pipenv-helpers.js.html">services/pipenv-helpers.js</a>, <a href="services_pipenv-helpers.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="~isLockfile"><span class="type-signature">(inner, constant) </span>isLockfile<span class="type-signature"> :Joi</span></h4>
+
+
+
+
+<div class="description">
+    <p>Joi schema for validating lock file object.
+Checks if the lock file object has required properties and the properties are valid.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Joi</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_pipenv-helpers.js.html">services/pipenv-helpers.js</a>, <a href="services_pipenv-helpers.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -106,7 +257,7 @@
     
 
     
-    <h4 class="name" id="~renderDownloadsBadge"><span class="type-signature">(inner) </span>renderDownloadsBadge<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id="~getDependencyVersion"><span class="type-signature">(inner) </span>getDependencyVersion<span class="signature">(attrs)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -114,8 +265,7 @@
 
 
 <div class="description">
-    <p>Handles rendering concerns of badges that display
-download counts, with override/customization support</p>
+    <p>Determines the dependency version based on the dependency type.</p>
 </div>
 
 
@@ -167,7 +317,7 @@ download counts, with override/customization support</p>
 
             
 
-            <td class="description last"><p>Refer to individual attrs</p>
+            <td class="description last"><p>Refer to individual attributes</p>
                 <h6>Properties</h6>
                 
 
@@ -181,8 +331,6 @@ download counts, with override/customization support</p>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -195,38 +343,7 @@ download counts, with override/customization support</p>
 
         <tr>
             
-                <td class="name"><code>downloads</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Number of downloads</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>interval</code></td>
+                <td class="name"><code>kind</code></td>
             
 
             <td class="type">
@@ -239,29 +356,17 @@ download counts, with override/customization support</p>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>Period or interval the downloads occurred
-(e.g. day, week, month). If provided then this Will be reflected
-in the badge message unless overridden by other message-related parameters</p></td>
+            <td class="description last"><p>Wanted dependency type ('dev' or 'default'), defaults to 'default'</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>version</code></td>
+                <td class="name"><code>wantedDependency</code></td>
             
 
             <td class="type">
@@ -274,157 +379,33 @@ in the badge message unless overridden by other message-related parameters</p></
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>Version or tag that was downloaded
-which will be reflected in the badge label (unless the label is overridden)</p></td>
+            <td class="description last"><p>Name of the wanted dependency</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>labelOverride</code></td>
+                <td class="name"><code>lockfileData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">object</span>
 
 
             
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>If provided then the badge label is set to this
-value overriding any other label-related parameters</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>colorOverride</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>If provided then the badge color is set to this
-value instead of the color being based on the count of downloads</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>messageSuffixOverride</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>If provided then the badge message will
-will have this value added to the download count, separated with a space</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>versionedLabelPrefix</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>If provided then the badge label will use
-this value as the prefix for versioned badges, e.g. <code>foobar@v1.23</code>. Defaults to 'downloads'</p></td>
+            <td class="description last"><p>Object containing lock file data</p></td>
         </tr>
 
     
@@ -472,7 +453,7 @@ this value as the prefix for versioned badges, e.g. <code>foobar@v1.23</code>. D
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="services_downloads.js.html">services/downloads.js</a>, <a href="services_downloads.js.html#line29">line 29</a>
+        <a href="services_pipenv-helpers.js.html">services/pipenv-helpers.js</a>, <a href="services_pipenv-helpers.js.html#line48">line 48</a>
     </li></ul></dd>
     
 
@@ -495,13 +476,102 @@ this value as the prefix for versioned badges, e.g. <code>foobar@v1.23</code>. D
 
 
 
+<h5>Throws:</h5>
+<ul>
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error if unknown dependency type provided</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error if wanted dependency is not present in lock file data</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">InvalidParameter</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    
+        <li>
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <ul>
+<li>Error if version or ref is not present for the wanted dependency</li>
+</ul>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">InvalidParameter</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+</li>
+    </ul>
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    <p>Badge</p>
+    <p>Object containing wanted dependency version or ref</p>
 </div>
 
 

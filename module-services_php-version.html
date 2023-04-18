@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: core/base-service/base</title>
+    <title>JSDoc: Module: services/php-version</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: core/base-service/base</h1>
+    <h1 class="page-title">Module: services/php-version</h1>
 
     
 
@@ -33,6 +33,10 @@
 <article>
     <div class="container-overview">
     
+        
+            <div class="description"><p>Utilities relating to PHP version numbers. This compares version numbers
+using the algorithm followed by Composer (see
+https://getcomposer.org/doc/04-schema.md#version).</p></div>
         
 
         
@@ -67,7 +71,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line1">line 1</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -88,13 +92,6 @@
     
 
     
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-core_base-service_base-BaseService.html">BaseService</a></dt>
-            <dd></dd>
-        </dl>
-    
 
     
 
@@ -105,38 +102,38 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Type Definitions</h3>
+        <h3 class="subsection-title">Methods</h3>
 
         
-                
-<h4 class="name" id="~Auth">Auth</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
             
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
 
     
 
-<table class="props">
+    
+    <h4 class="name" id="~asciiVersionCompare"><span class="type-signature">(inner) </span>asciiVersionCompare<span class="signature">(v1, v2)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Return a negative value if v1 &lt; v2,
+zero if v1 = v2, a positive value otherwise.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -158,7 +155,7 @@
 
         <tr>
             
-                <td class="name"><code>userKey</code></td>
+                <td class="name"><code>v1</code></td>
             
 
             <td class="type">
@@ -174,14 +171,14 @@
 
             
 
-            <td class="description last"><p>(Optional) The key from <code>privateConfig</code> to use as the username.</p></td>
+            <td class="description last"><p>First version for comparison</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>passKey</code></td>
+                <td class="name"><code>v2</code></td>
             
 
             <td class="type">
@@ -197,37 +194,14 @@
 
             
 
-            <td class="description last"><p>(Optional) The key from <code>privateConfig</code> to use as the password.
-If auth is configured, either <code>userKey</code> or <code>passKey</code> is required.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>isRequired</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional) If <code>true</code>, the service will return <code>NotFound</code> unless the
-configured credentials are present.</p></td>
+            <td class="description last"><p>Second version for comparison</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -261,7 +235,7 @@ configured credentials are present.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line554">line 554</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -277,257 +251,73 @@ configured credentials are present.</p></td>
 
 
 
-            
-                
-<h4 class="name" id="~Badge">Badge</h4>
 
 
 
 
-<div class="description">
-    <p>Badge Object, validated against serviceDataSchema</p>
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Comparison result (-1, 0 or 1)</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
         
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>isError</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>label</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>message</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
 <span class="param-type">number</span>
 
 
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>color</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>link</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line508">line 508</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
+    </dd>
 </dl>
 
+    
 
 
 
 
 
+        
             
-                
-<h4 class="name" id="~DefaultBadgeData">DefaultBadgeData</h4>
 
+    
+
+    
+    <h4 class="name" id="~compare"><span class="type-signature">(inner) </span>compare<span class="signature">(v1, v2)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
 
 
 
 <div class="description">
-    <p>Default badge properties, validated against defaultBadgeDataSchema</p>
+    <p>Compares two versions and return an interger based on the result.
+See https://getcomposer.org/doc/04-schema.md#version
+and https://github.com/badges/shields/issues/319#issuecomment-74411045</p>
 </div>
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
 
 
 
 
 
-    <h5 class="subsection-title">Properties:</h5>
 
+    <h5>Parameters:</h5>
     
 
-<table class="props">
+<table class="params">
     <thead>
     <tr>
         
@@ -549,7 +339,7 @@ configured credentials are present.</p></td>
 
         <tr>
             
-                <td class="name"><code>label</code></td>
+                <td class="name"><code>v1</code></td>
             
 
             <td class="type">
@@ -565,14 +355,14 @@ configured credentials are present.</p></td>
 
             
 
-            <td class="description last"><p>(Optional)</p></td>
+            <td class="description last"><p>First version</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>color</code></td>
+                <td class="name"><code>v2</code></td>
             
 
             <td class="type">
@@ -588,58 +378,14 @@ configured credentials are present.</p></td>
 
             
 
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>labelColor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>namedLogo</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional)</p></td>
+            <td class="description last"><p>Second version</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -673,7 +419,7 @@ configured credentials are present.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line498">line 498</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line144">line 144</a>
     </li></ul></dd>
     
 
@@ -689,34 +435,71 @@ configured credentials are present.</p></td>
 
 
 
-            
-                
-<h4 class="name" id="~Example">Example</h4>
 
 
 
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Negative value if v1 &lt; v2, zero if v1 = v2, else a positive value</p>
+</div>
 
 
-    <h5 class="subsection-title">Properties:</h5>
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
 
     
 
-<table class="props">
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getPhpReleases"><span class="type-signature">(async, inner) </span>getPhpReleases<span class="signature">(githubApiProvider)</span><span class="type-signature"> &rarr; {Promise.&lt;*>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Fetches the PHP release versions from cache if exists, else fetch from the souce url and save in cache.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -738,7 +521,166 @@ configured credentials are present.</p></td>
 
         <tr>
             
-                <td class="name"><code>title</code></td>
+                <td class="name"><code>githubApiProvider</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Github API provider</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line273">line 273</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Promise that resolves to parsed response</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;*></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~isStable"><span class="type-signature">(inner) </span>isStable<span class="signature">(version)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Determines if a version is stable or not.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
             
 
             <td class="type">
@@ -754,113 +696,150 @@ configured credentials are present.</p></td>
 
             
 
-            <td class="description last"><p>Descriptive text that will be shown next to the badge. The default
-is to use the service class name, which probably is not what you want.</p></td>
+            <td class="description last"><p>Version number</p></td>
         </tr>
 
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>true if version is stable, else false</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~latest"><span class="type-signature">(inner) </span>latest<span class="signature">(versions)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Determines the latest version from a list of versions.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
 
         <tr>
             
-                <td class="name"><code>namedParams</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>An object containing the values of named parameters to
-substitute into the compiled route pattern.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>queryParams</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>An object containing query parameters to include in the
-example URLs. For alphanumeric query parameters, specify a string value.
-For boolean query parameters, specify <code>null</code>.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pattern</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The route pattern to compile. Defaults to <code>this.route.pattern</code>.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>staticPreview</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A rendered badge of the sort returned by <code>handle()</code> or
-<code>render()</code>: an object containing <code>message</code> and optional <code>label</code> and
-<code>color</code>. This is usually generated by invoking <code>this.render()</code> with some
-explicit props.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>keywords</code></td>
+                <td class="name"><code>versions</code></td>
             
 
             <td class="type">
@@ -876,36 +855,14 @@ explicit props.</p></td>
 
             
 
-            <td class="description last"><p>Additional keywords, other than words in the title. This helps
-users locate relevant badges.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>documentation</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>An HTML string that is included in the badge popup.</p></td>
+            <td class="description last"><p>List of versions</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -939,7 +896,7 @@ users locate relevant badges.</p></td>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line566">line 566</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line185">line 185</a>
     </li></ul></dd>
     
 
@@ -955,34 +912,71 @@ users locate relevant badges.</p></td>
 
 
 
-            
-                
-<h4 class="name" id="~Route">Route</h4>
 
 
 
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
 
 
 
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Latest version</p>
+</div>
 
 
-    <h5 class="subsection-title">Properties:</h5>
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
 
     
 
-<table class="props">
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~minorVersion"><span class="type-signature">(inner) </span>minorVersion<span class="signature">(version)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Checks if a version is valid and returns the minor version.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
     <thead>
     <tr>
         
@@ -1004,7 +998,7 @@ users locate relevant badges.</p></td>
 
         <tr>
             
-                <td class="name"><code>base</code></td>
+                <td class="name"><code>version</code></td>
             
 
             <td class="type">
@@ -1020,125 +1014,14 @@ users locate relevant badges.</p></td>
 
             
 
-            <td class="description last"><p>(Optional) The base path of the routes for this service.
-This is used as a prefix.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>pattern</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>A path-to-regexp pattern defining the route pattern and param names
-See <a href="https://www.npmjs.com/package/path-to-regexp">https://www.npmjs.com/package/path-to-regexp</a></p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>format</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">RegExp</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Deprecated: Regular expression to use for routes for this service's badges
-Use <code>pattern</code> instead</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>capture</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;string></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Deprecated: Array of names for the capture groups in the regular
-expression. The handler will be passed an object containing
-the matches.
-Use <code>pattern</code> instead</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>queryParamSchema</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Joi.object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>(Optional) A Joi schema (<code>Joi.object({ ... }).required()</code>)
-for the query param object. If you know a parameter
-will never receive a numeric string, you can use
-<code>Joi.string()</code>. Because of quirks in Scoutcamp and Joi,
-alphanumeric strings should be declared using
-<code>Joi.alternatives().try(Joi.string(), Joi.number())</code>,
-otherwise a value like <code>?success_color=999</code> will fail.
-A parameter requiring a numeric string can use
-<code>Joi.number()</code>. A parameter that receives only non-numeric
-strings can use <code>Joi.string()</code>. A parameter that never
-receives numeric can use <code>Joi.string()</code>. A boolean
-parameter should use <code>Joi.equal('')</code> and will receive an
-empty string on e.g. <code>?compact_message</code> and undefined
-when the parameter is absent. (Note that in,
-<code>examples.queryParams</code> boolean query params should be given
-<code>null</code> values.)</p></td>
+            <td class="description last"><p>Version number</p></td>
         </tr>
 
     
     </tbody>
 </table>
+
+
 
 
 
@@ -1172,7 +1055,7 @@ when the parameter is absent. (Note that in,
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_base.js.html">core/base-service/base.js</a>, <a href="core_base-service_base.js.html#line519">line 519</a>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line219">line 219</a>
     </li></ul></dd>
     
 
@@ -1188,7 +1071,388 @@ when the parameter is absent. (Note that in,
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Minor version</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
             
+
+    
+
+    
+    <h4 class="name" id="~numberedVersionData"><span class="type-signature">(inner) </span>numberedVersionData<span class="signature">(version)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Take a version without the starting v.
+eg, '1.0.x-beta'
+Return { numbers: [1,0,something big], modifier: 2, modifierCount: 1 }</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Version number string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line40">line 40</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Object containing version details</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~versionReduction"><span class="type-signature">(inner) </span>versionReduction<span class="signature">(versions, phpReleases)</span><span class="type-signature"> &rarr; {Array.&lt;string>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Reduces the list of php versions that intersect with release versions to a version range (for eg. '5.4 - 7.1', '&gt;= 5.5').</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>versions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>List of php versions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>phpReleases</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>List of php release versions</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="services_php-version.js.html">services/php-version.js</a>, <a href="services_php-version.js.html#line236">line 236</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>Reduced Version Range (for eg. ['5.4 - 7.1'], ['&gt;= 5.5'])</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
     
 
     
