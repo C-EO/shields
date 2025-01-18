@@ -14,18 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Check for new GitHub API version
         run: node scripts/update-github-api.js
 
       - name: Create Pull Request if config has changed
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           token: '${{ secrets.GITHUB_TOKEN }}'
           commit-message: Update GitHub API Version

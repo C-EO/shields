@@ -12,20 +12,19 @@ const versionSchema = Joi.array()
     Joi.object({
       version_number: Joi.string().required(),
       game_versions: Joi.array().items(Joi.string()).min(1).required(),
-    }).required()
+    }).required(),
   )
   .required()
 
-const documentation =
+const description =
   "<p>You can use your project slug, or the project ID. The ID can be found in the 'Technical information' section of your Modrinth page.</p>"
 
 class BaseModrinthService extends BaseJsonService {
   async fetchVersions({ projectId }) {
-    const bruh = {
+    return this._requestJson({
       schema: versionSchema,
       url: `https://api.modrinth.com/v2/project/${projectId}/version`,
-    }
-    return this._requestJson(bruh)
+    })
   }
 
   async fetchProject({ projectId }) {
@@ -36,4 +35,4 @@ class BaseModrinthService extends BaseJsonService {
   }
 }
 
-export { BaseModrinthService, documentation }
+export { BaseModrinthService, description }

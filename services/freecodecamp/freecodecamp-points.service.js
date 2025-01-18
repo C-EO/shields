@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import { metric } from '../text-formatters.js'
-import { BaseJsonService, InvalidResponse, NotFound } from '../index.js'
+import { BaseJsonService, InvalidResponse, pathParams } from '../index.js'
 
 /**
  * Validates that the schema response is what we're expecting.
@@ -16,7 +16,7 @@ const schema = Joi.object({
       .pattern(/^[a-zA-Z0-9\-_+]*$/, {
         points: Joi.number().allow(null).required(),
       }),
-  }).optional(),
+  }).required(),
 }).required()
 
 /**
@@ -30,13 +30,17 @@ export default class FreeCodeCampPoints extends BaseJsonService {
     pattern: ':username',
   }
 
-  static examples = [
-    {
-      title: 'freeCodeCamp points',
-      namedParams: { username: 'sethi' },
-      staticPreview: this.render({ points: 934 }),
+  static openApi = {
+    '/freecodecamp/points/{username}': {
+      get: {
+        summary: 'freeCodeCamp points',
+        parameters: pathParams({
+          name: 'username',
+          example: 'raisedadead',
+        }),
+      },
     },
-  ]
+  }
 
   static defaultBadgeData = { label: 'points', color: 'info' }
 
@@ -53,18 +57,18 @@ export default class FreeCodeCampPoints extends BaseJsonService {
           username,
         },
       },
+      httpErrors: { 404: 'profile not found' },
     })
   }
 
   static transform(response, username) {
     const { entities } = response
 
-    if (entities === undefined)
-      throw new NotFound({ prettyMessage: 'profile not found' })
-
     const { points } = entities.user[username]
 
-    if (points === null) throw new InvalidResponse({ prettyMessage: 'private' })
+    if (points === null) {
+      throw new InvalidResponse({ prettyMessage: 'private' })
+    }
 
     return points
   }

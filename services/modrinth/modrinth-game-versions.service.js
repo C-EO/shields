@@ -1,4 +1,5 @@
-import { BaseModrinthService, documentation } from './modrinth-base.js'
+import { pathParams } from '../index.js'
+import { BaseModrinthService, description } from './modrinth-base.js'
 
 export default class ModrinthGameVersions extends BaseModrinthService {
   static category = 'platform-support'
@@ -8,18 +9,28 @@ export default class ModrinthGameVersions extends BaseModrinthService {
     pattern: ':projectId',
   }
 
-  static examples = [
-    {
-      title: 'Modrinth Game Versions',
-      namedParams: { projectId: 'AANobbMI' },
-      staticPreview: this.render({ versions: ['1.19.2', '1.19.1', '1.19'] }),
-      documentation,
+  static openApi = {
+    '/modrinth/game-versions/{projectId}': {
+      get: {
+        summary: 'Modrinth Game Versions',
+        description,
+        parameters: pathParams({
+          name: 'projectId',
+          example: 'AANobbMI',
+        }),
+      },
     },
-  ]
+  }
 
   static defaultBadgeData = { label: 'game versions' }
 
   static render({ versions }) {
+    if (versions.length > 5) {
+      return {
+        message: `${versions[0]} | ${versions[1]} | ... | ${versions[versions.length - 2]} | ${versions[versions.length - 1]}`,
+        color: 'blue',
+      }
+    }
     return {
       message: versions.join(' | '),
       color: 'blue',

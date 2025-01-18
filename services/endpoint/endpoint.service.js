@@ -1,28 +1,27 @@
 import { URL } from 'url'
 import Joi from 'joi'
-import { errorMessages } from '../dynamic-common.js'
-import { optionalUrl } from '../validators.js'
+import { httpErrors } from '../dynamic-common.js'
+import { url } from '../validators.js'
 import { fetchEndpointData } from '../endpoint-common.js'
-import { BaseJsonService, InvalidParameter } from '../index.js'
+import { BaseJsonService, InvalidParameter, queryParams } from '../index.js'
 
 const blockedDomains = ['github.com', 'shields.io']
 
 const queryParamSchema = Joi.object({
-  url: optionalUrl.required(),
+  url,
 }).required()
 
-const description = `<p>
-  Using the endpoint badge, you can provide content for a badge through
-  a JSON endpoint. The content can be prerendered, or generated on the
-  fly. To strike a balance between responsiveness and bandwidth
-  utilization on one hand, and freshness on the other, cache behavior is
-  configurable, subject to the Shields minimum. The endpoint URL is
-  provided to Shields through the query string. Shields fetches it and
-  formats the badge.
-</p>
-<p>
-  The endpoint badge takes a single required query param: <code>url</code>, which is the URL to your JSON endpoint
-</p>
+const description = `
+Using the endpoint badge, you can provide content for a badge through
+a JSON endpoint. The content can be prerendered, or generated on the
+fly. To strike a balance between responsiveness and bandwidth
+utilization on one hand, and freshness on the other, cache behavior is
+configurable, subject to the Shields minimum. The endpoint URL is
+provided to Shields through the query string. Shields fetches it and
+formats the badge.
+
+The endpoint badge takes a single required query param: <code>url</code>, which is the URL to your JSON endpoint
+
 <div>
   <h2>Example JSON Endpoint Response</h2>
   <code>&#123; "schemaVersion": 1, "label": "hello", "message": "sweet world", "color": "orange" &#125;</code>
@@ -78,9 +77,9 @@ const description = `<p>
       <tr>
         <td><code>namedLogo</code></td>
         <td>
-          Default: none. One of the named logos supported by Shields or
-          <a href="https://simpleicons.org/">simple-icons</a>. Can be overridden
-          by the query string.
+          Default: none. One of the
+		  <a href="https://simpleicons.org/">simple-icons</a> slugs. Can be
+          overridden by the query string.
         </td>
       </tr>
       <tr>
@@ -91,20 +90,19 @@ const description = `<p>
         <td><code>logoColor</code></td>
         <td>
           Default: none. Same meaning as the query string. Can be overridden by
-          the query string. Only works for named logos and Shields logos. If you
-          override the color of a multicolor Shield logo, the corresponding
-          named logo will be used and colored.
+          the query string. Only works for simple-icons logos.
         </td>
       </tr>
+      <tr>
+      <td><code>logoSize</code></td>
+      <td>
+        Default: none. Make icons adaptively resize by setting <code>auto</code>.
+        Useful for some wider logos like <code>amd</code> and <code>amg</code>.
+        Supported for simple-icons logos only.
+      </td>
+    </tr>
       <tr>
         <td><code>logoWidth</code></td>
-        <td>
-          Default: none. Same meaning as the query string. Can be overridden by
-          the query string.
-        </td>
-      </tr>
-      <tr>
-        <td><code>logoPosition</code></td>
         <td>
           Default: none. Same meaning as the query string. Can be overridden by
           the query string.
@@ -135,16 +133,12 @@ export default class Endpoint extends BaseJsonService {
       get: {
         summary: 'Endpoint Badge',
         description,
-        parameters: [
-          {
-            name: 'url',
-            description: 'The URL to your JSON endpoint',
-            in: 'query',
-            required: true,
-            schema: { type: 'string' },
-            example: 'https://shields.redsparr0w.com/2473/monday',
-          },
-        ],
+        parameters: queryParams({
+          name: 'url',
+          description: 'The URL to your JSON endpoint',
+          required: true,
+          example: 'https://shields.redsparr0w.com/2473/monday',
+        }),
       },
     },
   }
@@ -161,8 +155,8 @@ export default class Endpoint extends BaseJsonService {
     namedLogo,
     logoSvg,
     logoColor,
+    logoSize,
     logoWidth,
-    logoPosition,
     style,
     cacheSeconds,
   }) {
@@ -175,10 +169,13 @@ export default class Endpoint extends BaseJsonService {
       namedLogo,
       logoSvg,
       logoColor,
+      logoSize,
       logoWidth,
-      logoPosition,
       style,
-      cacheSeconds,
+      // don't allow the user to set cacheSeconds any shorter than this._cacheLength
+      cacheSeconds: Math.max(
+        ...[this._cacheLength, cacheSeconds].filter(x => x !== undefined),
+      ),
     }
   }
 
@@ -200,7 +197,7 @@ export default class Endpoint extends BaseJsonService {
 
     const validated = await fetchEndpointData(this, {
       url,
-      errorMessages,
+      httpErrors,
       validationPrettyErrorMessage: 'invalid properties',
       includeKeys: true,
     })

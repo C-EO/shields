@@ -1,9 +1,9 @@
 import Joi from 'joi'
-import { optionalUrl } from '../validators.js'
-import { BaseService, BaseJsonService } from '../index.js'
+import { url } from '../validators.js'
+import { BaseService, pathParams, queryParams } from '../index.js'
 
 const queryParamSchema = Joi.object({
-  url: optionalUrl.required(),
+  url,
 }).required()
 
 class TwitterUrl extends BaseService {
@@ -15,27 +15,23 @@ class TwitterUrl extends BaseService {
     queryParamSchema,
   }
 
-  static examples = [
-    {
-      title: 'Twitter URL',
-      namedParams: {},
-      queryParams: {
-        url: 'https://shields.io',
-      },
-      // hard code the static preview
-      // because link[] is not allowed in examples
-      staticPreview: {
-        label: 'Tweet',
-        message: '',
-        style: 'social',
+  static openApi = {
+    '/twitter/url': {
+      get: {
+        summary: 'X (formerly Twitter) URL',
+        parameters: queryParams({
+          name: 'url',
+          example: 'https://shields.io',
+          required: true,
+        }),
       },
     },
-  ]
+  }
 
   static _cacheLength = 86400
 
   static defaultBadgeData = {
-    namedLogo: 'twitter',
+    namedLogo: 'x',
   }
 
   async handle(_routeParams, { url }) {
@@ -65,7 +61,7 @@ due to how widely used the badge was. See
 https://github.com/badges/shields/issues/8837
 for related discussion.
 */
-class TwitterFollow extends BaseJsonService {
+class TwitterFollow extends BaseService {
   static category = 'social'
 
   static route = {
@@ -73,27 +69,19 @@ class TwitterFollow extends BaseJsonService {
     pattern: ':user',
   }
 
-  static examples = [
-    {
-      title: 'Twitter Follow',
-      namedParams: {
-        user: 'shields_io',
-      },
-      queryParams: { label: 'Follow' },
-      // hard code the static preview
-      // because link[] is not allowed in examples
-      staticPreview: {
-        label: 'Follow @shields_io',
-        message: '',
-        style: 'social',
+  static openApi = {
+    '/twitter/follow/{user}': {
+      get: {
+        summary: 'X (formerly Twitter) Follow',
+        parameters: pathParams({ name: 'user', example: 'shields_io' }),
       },
     },
-  ]
+  }
 
   static _cacheLength = 86400
 
   static defaultBadgeData = {
-    namedLogo: 'twitter',
+    namedLogo: 'x',
   }
 
   static render({ user }) {
@@ -103,7 +91,7 @@ class TwitterFollow extends BaseJsonService {
       style: 'social',
       link: [
         `https://twitter.com/intent/follow?screen_name=${encodeURIComponent(
-          user
+          user,
         )}`,
       ],
     }

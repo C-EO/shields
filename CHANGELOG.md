@@ -4,6 +4,312 @@ Note: this changelog is for the shields.io server. The changelog for the badge-m
 
 ---
 
+## server-2025-01-01
+
+- Add [PypiTypes] badge [#10774](https://github.com/badges/shields/issues/10774)
+- feat(endpoint-badge): add logoSize support [#10132](https://github.com/badges/shields/issues/10132)
+- fix auto-sized logo sizes [#10764](https://github.com/badges/shields/issues/10764)
+- Add [Coderabbit] PR Stats service and tests [#10749](https://github.com/badges/shields/issues/10749)
+- add [PUB] downloads badge [#10745](https://github.com/badges/shields/issues/10745)
+- Add [GitLab] Top Language Badge [#10750](https://github.com/badges/shields/issues/10750)
+- provide a non-repository scoped version of [githubcodesearch] [#10733](https://github.com/badges/shields/issues/10733)
+- [ReproducibleCentral] add Reproducible Central in Dependencies [#10705](https://github.com/badges/shields/issues/10705)
+- Add ability to format bytes as metric or IEC; affects [bundlejs bundlephobia ChromeWebStoreSize CratesSize DockerSize GithubRepoSize GithubCodeSize GithubSize NpmUnpackedSize SpigetDownloadSize steam VisualStudioAppCenterReleasesSize whatpulse] [#10547](https://github.com/badges/shields/issues/10547)
+- Dependency updates
+
+## server-2024-12-01
+
+- add [WingetVersion] Badge [#10245](https://github.com/badges/shields/issues/10245)
+- Fix broken URL for pingpong.one [#10655](https://github.com/badges/shields/issues/10655)
+- [npm] - Last update badge added [#10641](https://github.com/badges/shields/issues/10641)
+- reduce overhead of NPM Last Update badge; test [npm] [#10666](https://github.com/badges/shields/issues/10666)
+- Add YouTube-specific privacy notes [#10646](https://github.com/badges/shields/issues/10646)
+- Dependency updates
+
+## server-2024-11-02
+
+- cleanly handle null or undefined result from jsonpath-plus [#10645](https://github.com/badges/shields/issues/10645)
+- add content security policy header to SVG responses [#10642](https://github.com/badges/shields/issues/10642)
+- [Scoop] Added scoop-license badge. [#10627](https://github.com/badges/shields/issues/10627)
+- [Chromewebstore] Extension size & last updated [#10613](https://github.com/badges/shields/issues/10613)
+- Deprecate HackageDeps service [#10618](https://github.com/badges/shields/issues/10618)
+- Add [CratesUserDownloads] service and tester [#10619](https://github.com/badges/shields/issues/10619)
+- [Snapcraft] - Added snapcraft last update badge [#10610](https://github.com/badges/shields/issues/10610)
+- [GitHubHacktoberfest] 2024 support [#10612](https://github.com/badges/shields/issues/10612)
+- add [homebrew] cask download badge [#10595](https://github.com/badges/shields/issues/10595)
+- remove prefix v for commit hash version [#10597](https://github.com/badges/shields/issues/10597)
+- [Maven] Added badge for Maven-Cenral last-update (#10301) [#10585](https://github.com/badges/shields/issues/10585)
+- [DynamicXml] parse doc as html if served with text/html content type [#10607](https://github.com/badges/shields/issues/10607)
+- Revert "Use old.stats.jenkins.io for JSON data (#10522)" [#10537](https://github.com/badges/shields/issues/10537)
+- catch queries that cause TypeError [#10556](https://github.com/badges/shields/issues/10556)
+- Dependency updates
+
+## server-2024-09-25
+
+This release includes an important security fix. See
+
+- https://github.com/badges/shields/security/advisories/GHSA-rxvx-x284-4445
+- https://github.com/badges/shields/issues/10553
+
+for more details
+
+- [dynamicjson dynamicyaml dynamictoml] switch to jsonpath-plus [#10551](https://github.com/badges/shields/issues/10551)
+- [Snapcraft] license [#10520](https://github.com/badges/shields/issues/10520)
+- deprecate [wheelmap] service [#10538](https://github.com/badges/shields/issues/10538)
+- Use old.stats.jenkins.io for JSON data [#10522](https://github.com/badges/shields/issues/10522)
+- catch xml ParseError [#10516](https://github.com/badges/shields/issues/10516)
+- migrate [MozillaObservatory] to /scan endpoint [#10491](https://github.com/badges/shields/issues/10491)
+- fix incorrect codecov config link [#10511](https://github.com/badges/shields/issues/10511)
+- [OSSLifecycle OSSLifecycleRedirect] Add file_url param to pull from non-github sources [#10489](https://github.com/badges/shields/issues/10489)
+- perf: improve logoSize performance [#10488](https://github.com/badges/shields/issues/10488)
+- perf: faster `resetIconPosition` avoiding to parse path twice [#10497](https://github.com/badges/shields/issues/10497)
+- perf: limit logoSize precision to 3 [#10521](https://github.com/badges/shields/issues/10521)
+- Dependency updates
+
+## server-2024-09-02
+
+- Publish linux/amd64 docker images for snapshot builds [#10476](https://github.com/badges/shields/issues/10476)
+- Fix Gitea not having credentials/authorizedOrigins in Docker environments [#10486](https://github.com/badges/shields/issues/10486)
+- fix typo in pepy downloads [#10475](https://github.com/badges/shields/issues/10475)
+- ignore a couple of docusaurus warnings [#10469](https://github.com/badges/shields/issues/10469)
+- Use Ecologi API to power Treeware badges [#10467](https://github.com/badges/shields/issues/10467)
+- move go version badge to platform support category [#10444](https://github.com/badges/shields/issues/10444)
+- [Crates] Implement Dependents Badge [#10438](https://github.com/badges/shields/issues/10438)
+- [Crates] Added crate size badge [#10421](https://github.com/badges/shields/issues/10421)
+- Dependency updates
+
+## server-2024-08-01
+
+- send Cross-Origin-Resource-Policy header on all responses [#10420](https://github.com/badges/shields/issues/10420)
+- migrate [MozillaObservatory] to new API [#10402](https://github.com/badges/shields/issues/10402)
+- use metric() for [discord] and [revolt] badges [#10406](https://github.com/badges/shields/issues/10406)
+- Cache text only static badges for longer [#10403](https://github.com/badges/shields/issues/10403)
+- Fix [FreeCodeCampPoints] not found handling [#10377](https://github.com/badges/shields/issues/10377)
+- Fix [Gitea] not found message [#10373](https://github.com/badges/shields/issues/10373)
+- Deprecate [Bountysource] service [#10371](https://github.com/badges/shields/issues/10371)
+- Sunset Shields custom logos [#10347](https://github.com/badges/shields/issues/10347)
+- Use ellipsis when many versions returned for [ModrinthGameVersions] [#10350](https://github.com/badges/shields/issues/10350)
+- deprecate [tokei] service [#9581](https://github.com/badges/shields/issues/9581)
+- Add CF-Ray header value to Sentry errors if available [#10339](https://github.com/badges/shields/issues/10339)
+- Use XML for Chocolatey, affects [Chocolatey Resharper PowershellGallery] [#10344](https://github.com/badges/shields/issues/10344)
+- include github contributors badge in docs site [#10337](https://github.com/badges/shields/issues/10337)
+- Dependency updates
+
+## server-2024-07-01
+
+- Add [AUR] Popularity Badge [#10304](https://github.com/badges/shields/issues/10304)
+- fix npm badges when `maintainers` not in response [#10286](https://github.com/badges/shields/issues/10286)
+- Expose `logoBase64` and `links` in badge-maker NPM package [#10283](https://github.com/badges/shields/issues/10283)
+- Remove `logoPosition` [#10284](https://github.com/badges/shields/issues/10284)
+- [MBIN] Add subscribers badge [#10270](https://github.com/badges/shields/issues/10270)
+- Add [Docker] support for loong64 arch [#10241](https://github.com/badges/shields/issues/10241)
+- Add puppetforge quality score badges [#10201](https://github.com/badges/shields/issues/10201)
+- Dependency updates
+
+## server-2024-06-01
+
+- Remove namedLogo from defaultBadgeData of non-social badges [#10195](https://github.com/badges/shields/issues/10195)
+- Update number of badges served each month [#10197](https://github.com/badges/shields/issues/10197)
+- Delete old deprecated services [#10196](https://github.com/badges/shields/issues/10196)
+- handle [BitbucketPipelines] responses with missing result key [#10163](https://github.com/badges/shields/issues/10163)
+- Update description of GitHub commit status badge [#10198](https://github.com/badges/shields/issues/10198)
+- chore: fix spelling of GitHub in badge descriptions [#10199](https://github.com/badges/shields/issues/10199)
+- Add [GithubCheckRuns] service [#7759](https://github.com/badges/shields/issues/7759)
+- feat: add Revolt badge [#10093](https://github.com/badges/shields/issues/10093)
+- ensure color is string before calling toLowerCase() [#10129](https://github.com/badges/shields/issues/10129)
+- instruct dependabot to monitor composite actions [#10139](https://github.com/badges/shields/issues/10139)
+- run tests on node 22 [#10127](https://github.com/badges/shields/issues/10127)
+- tweaks to libraries.io token pooling code [#10074](https://github.com/badges/shields/issues/10074)
+- fix [pypi] status badge when package has no 'Development Status' classifier [#10107](https://github.com/badges/shields/issues/10107)
+- clarify yml paths in server-secrets docs [#10106](https://github.com/badges/shields/issues/10106)
+- Update region flag name in flyctl deploy command [#10134](https://github.com/badges/shields/issues/10134)
+- Dependency updates
+
+## server-2024-05-01
+
+- [Hexpm] Fix badges for pre-release only versions [#10112](https://github.com/badges/shields/issues/10112)
+- feat(logos): support auto-sizing mode [#9191](https://github.com/badges/shields/issues/9191) [#10110](https://github.com/badges/shields/issues/10110) [#10125](https://github.com/badges/shields/issues/10125)
+- support setting pypiBaseUrl by environment variables and queryParameters; affects [pypi] [#10044](https://github.com/badges/shields/issues/10044)
+- Add 0BSD license to licenseTypes and [PypiLicense] [#10092](https://github.com/badges/shields/issues/10092)
+- Update Mastodon profile URL [#10082](https://github.com/badges/shields/issues/10082)
+- [GitHubGoMod] Ignore comment after version (fixes #10079) [#10080](https://github.com/badges/shields/issues/10080)
+- Perf: Librariesio repo dependencies [#10062](https://github.com/badges/shields/issues/10062)
+- [Chocolatey Nuget] Fix "not found" error for chocolatey badge [#10060](https://github.com/badges/shields/issues/10060)
+- Dependency updates
+
+## server-2024-04-01
+
+- improve performance of [GithubLastCommit] [GitlabLastCommit] [GiteaLastCommit] [#10046](https://github.com/badges/shields/issues/10046)
+- [BitbucketLastCommit] Add Bitbucket last commit [#10043](https://github.com/badges/shields/issues/10043)
+- [GithubLastCommit] [GitlabLastCommit] [GiteaLastCommit] Support file path for last commit [#10041](https://github.com/badges/shields/issues/10041)
+- upgrade to docusaurus 3 [#9820](https://github.com/badges/shields/issues/9820)
+- redirect [npm] /dt to /d18m [#10033](https://github.com/badges/shields/issues/10033)
+- Add [JSR] version service [#10030](https://github.com/badges/shields/issues/10030)
+- Add [snapcraft] version badge [#9976](https://github.com/badges/shields/issues/9976)
+- Dependency updates
+
+## server-2024-03-01
+
+- feat(gitea): add last commit badge [#9995](https://github.com/badges/shields/issues/9995)
+- [GithubCreatedAt] Add Created At Badge for Github [#9981](https://github.com/badges/shields/issues/9981)
+- Added custom bucket url support for [Scoop] [#9984](https://github.com/badges/shields/issues/9984)
+- [NpmUnpackedSize] Unpacked Size Badge [#9954](https://github.com/badges/shields/issues/9954)
+- [Website] Render `status: down` badge if website is unresponsive [#9966](https://github.com/badges/shields/issues/9966)
+- deprecate TAS [#9932](https://github.com/badges/shields/issues/9932)
+- [GITEA] add forks, stars, issues and pr badges [#9923](https://github.com/badges/shields/issues/9923)
+- tolerate missing short_version in [visualstudioappcenter] [#9951](https://github.com/badges/shields/issues/9951)
+- [Crates] Only use non-yanked crate versions (ready for merge) [#9949](https://github.com/badges/shields/issues/9949)
+- Dependency updates
+
+## server-2024-02-01
+
+- feat: added up_message and down_message to [uptimerobotstatus] [#9662](https://github.com/badges/shields/issues/9662)
+- Add [Hangar] Badges [#9800](https://github.com/badges/shields/issues/9800)
+- sort categories by title (except core) [#9888](https://github.com/badges/shields/issues/9888)
+- Add Support for [Nostr] Followers [#9870](https://github.com/badges/shields/issues/9870)
+- [thunderstore] replace experimental API usage with newly available v1 API [#9886](https://github.com/badges/shields/issues/9886)
+- Update [Gitea] defaults to gitea.com [#9872](https://github.com/badges/shields/issues/9872)
+- [crates] MSRV Badge [#9871](https://github.com/badges/shields/issues/9871)
+- Add [galaxytoolshed] Version [#8249](https://github.com/badges/shields/issues/8249)
+- fix default style docs for social badges [#9869](https://github.com/badges/shields/issues/9869)
+- Dependency updates
+
+## server-2024-01-01
+
+The most important changes in this release for users hosting their own instance are:
+
+The shields docker image is now based on node 20:
+
+- deploy on node 20 [#9799](https://github.com/badges/shields/issues/9799)
+
+It is now possible to use [authentication for DockerHub](https://github.com/badges/shields/blob/master/doc/server-secrets.md#dockerhub) to allow higher API rate limit or access to private repos:
+
+- call [docker] with auth [#9803](https://github.com/badges/shields/issues/9803)
+
+### New Badges
+
+- [Thunderstore] Add Thunderstore Badges [#9782](https://github.com/badges/shields/issues/9782)
+- Add [Raycast] Badge [#9801](https://github.com/badges/shields/issues/9801)
+- [GITEA] add new gitea service (release/languages) [#9781](https://github.com/badges/shields/issues/9781)
+- Add [NpmStatDownloads] Badge [#9783](https://github.com/badges/shields/issues/9783)
+
+### Frontend Changes
+
+- improve documentation for [dynamicxml] service [#9798](https://github.com/badges/shields/issues/9798)
+- add description to interval enums [#9854](https://github.com/badges/shields/issues/9854)
+- convert 'style' param to enum [#9853](https://github.com/badges/shields/issues/9853)
+- Ensure social category badges are rendered with social style and logo; affects [gitlab keybase lemmy modrinth thunderstore twitch] gist github reddit [#9859](https://github.com/badges/shields/issues/9859)
+
+### Fixes
+
+- [pub] Use official version endpoint for pub-service [#9802](https://github.com/badges/shields/issues/9802)
+- cache weblate badges for longer [#9786](https://github.com/badges/shields/issues/9786)
+- [Discourse] Update schema keys to use plural form (`topic_count` -> `topics_count`) [#9778](https://github.com/badges/shields/issues/9778)
+- cache some badges for longer [#9785](https://github.com/badges/shields/issues/9785)
+- increase page size for github release badge by semver [#9818](https://github.com/badges/shields/issues/9818)
+- Dependency updates
+
+## server-2023-12-04
+
+- move from @renovate/pep440 to @renovatebot/pep440 [#9614](https://github.com/badges/shields/issues/9614)
+- deprecate/fix [ansible] galaxy services [#9648](https://github.com/badges/shields/issues/9648)
+- call [pepy] with auth [#9748](https://github.com/badges/shields/issues/9748)
+- add meaningful descriptions including keywords [#9715](https://github.com/badges/shields/issues/9715)
+- Dependency updates
+
+## server-2023-11-01
+
+- fix greasyfork 404 bug [#9632](https://github.com/badges/shields/issues/9632)
+- Hacktoberfest 2023 support - resolves #9636 [#9637](https://github.com/badges/shields/issues/9637)
+- switch to fixed OpenCollective images [#9615](https://github.com/badges/shields/issues/9615)
+- Dependency updates
+
+## server-2023-10-02
+
+- add python package total downloads from [pepy] badge [#9564](https://github.com/badges/shields/issues/9564)
+- deprecate [redmine] plugin rating badges [#9568](https://github.com/badges/shields/issues/9568)
+- fix [bower] version badge [#9567](https://github.com/badges/shields/issues/9567)
+- Add [PythonVersionFromToml] shield [#9516](https://github.com/badges/shields/issues/9516)
+- Add [dub] score badge service [#9549](https://github.com/badges/shields/issues/9549)
+- Dependency updates
+
+## server-2023-09-04
+
+- Fix [testspace] badges [#9525](https://github.com/badges/shields/issues/9525)
+- fix rSt code example [#9528](https://github.com/badges/shields/issues/9528)
+- Add dynamic TOML support via [DynamicToml] Service [#9517](https://github.com/badges/shields/issues/9517)
+- cache [pypi] downloads for longer [#9522](https://github.com/badges/shields/issues/9522)
+- [twitter] --> x [#9496](https://github.com/badges/shields/issues/9496)
+- [bundlejs] add badge for the npm package size [#9055](https://github.com/badges/shields/issues/9055)
+- Switch [OpenCollective] badges to use GraphQL and auth [#9387](https://github.com/badges/shields/issues/9387)
+- [Pulsar] Add Pulsar Badges for Stargazers & Downloads [#8767](https://github.com/badges/shields/issues/8767)
+- Add [CurseForge] badges [#9252](https://github.com/badges/shields/issues/9252)
+- deploy on node 18 [#9385](https://github.com/badges/shields/issues/9385)
+- allow calling [github] without auth [#9427](https://github.com/badges/shields/issues/9427)
+- Dependency updates
+
+## server-2023-08-01
+
+- Convert `examples` arrays to `openApi` objects (part 1) [#9320](https://github.com/badges/shields/issues/9320)
+- Migrate from docs.rs' builds API to status API [#9422](https://github.com/badges/shields/issues/9422)
+- [OpenVSX] Fix OpenVSX API call for unversioned package URLs [#9408](https://github.com/badges/shields/issues/9408)
+- Add support for [Lemmy] [#9368](https://github.com/badges/shields/issues/9368)
+- upgrade to npm 9 [#9323](https://github.com/badges/shields/issues/9323)
+- Go back to default YouTube cache [#9372](https://github.com/badges/shields/issues/9372)
+- Add [GitHubDiscussionsSearch] and GitHubRepoDiscussionsSearch service [#9340](https://github.com/badges/shields/issues/9340)
+- Allow user to filter github tags and releases [#9193](https://github.com/badges/shields/issues/9193)
+- don't URL encode slash in [githubactionsworkflow] badge [#9322](https://github.com/badges/shields/issues/9322)
+- add a bit of border to select boxes [#9348](https://github.com/badges/shields/issues/9348)
+- deprecate [snyk] badges [#9349](https://github.com/badges/shields/issues/9349)
+- increase max-age on [docker] badges, again [#9350](https://github.com/badges/shields/issues/9350) [#9369](https://github.com/badges/shields/issues/9369)
+- Dependency updates
+
+## server-2023-07-02
+
+By far the most significant change in this release is the long-awaited launch of the re-designed frontend:
+
+- migrate frontend to docusaurus [#9014](https://github.com/badges/shields/issues/9014)
+- fix a load of spacing issues in frontend content [#9281](https://github.com/badges/shields/issues/9281)
+- set a sensible meta description [#9283](https://github.com/badges/shields/issues/9283)
+- chore(frontend): open homepage feature links in new tab [#9300](https://github.com/badges/shields/issues/9300)
+- adapt opencollective images to theme background [#9298](https://github.com/badges/shields/issues/9298)
+- temp fix: wrap code examples tabs in narrow browser windows [#9302](https://github.com/badges/shields/issues/9302)
+- add a bit of border to text boxes [#9324](https://github.com/badges/shields/issues/9324)
+
+Other changes in this release:
+
+- cache [dockerpulls] badges for an hour [#9343](https://github.com/badges/shields/issues/9343)
+- Mention YouTube API services and link to Google Privacy Policy [#9339](https://github.com/badges/shields/issues/9339)
+- allow negative timestamps in relative [date] badge [#9321](https://github.com/badges/shields/issues/9321)
+- upgrade to graphql 16 [#9290](https://github.com/badges/shields/issues/9290)
+- remove obsolete travis .org examples [#9284](https://github.com/badges/shields/issues/9284)
+- increase max age on reddit badges [#9282](https://github.com/badges/shields/issues/9282)
+- feat: Add author filter option for [GithubCommitActivity] [#9251](https://github.com/badges/shields/issues/9251)
+- Fix: [GithubCommitActivity] invalid branch error handling [#9258](https://github.com/badges/shields/issues/9258)
+- Implement a pattern for dealing with upstream APIs which are slow on the first hit; affects [endpoint] [#9233](https://github.com/badges/shields/issues/9233)
+- Delete old deprecated services [#9254](https://github.com/badges/shields/issues/9254)
+- feat: add 'canceled' status to netlify deploy badge [#9240](https://github.com/badges/shields/issues/9240)
+- increase default cache on youtube badges [#9238](https://github.com/badges/shields/issues/9238)
+- embiggen youtube cache, again [#9250](https://github.com/badges/shields/issues/9250)
+- Dependency updates
+
+## server-2023-06-01
+
+- feat: Add total commits to [GitHubCommitActivity] [#9196](https://github.com/badges/shields/issues/9196)
+- set a custom error on 429 [#9159](https://github.com/badges/shields/issues/9159)
+- deprecate [travis].org badges [#9171](https://github.com/badges/shields/issues/9171)
+- count private sponsors on [GithubSponsors] badge [#9170](https://github.com/badges/shields/issues/9170)
+- Dependency updates
+
+## server-2023-05-01
+
+**Removal:** For users who need to maintain a Github Token pool, storage has been provided via the `RedisTokenPersistence` and `REDIS_URL` settings. This feature was deprecated in `server-2023-03-01`. As of this release, the `RedisTokenPersistence` backend is now removed. If you are using this feature, you will need to migrate to using the `SQLTokenPersistence` backend for storage and provide a postgres connection string via the `POSTGRES_URL` setting. [#8922](https://github.com/badges/shields/issues/8922)
+
+- fail to start server if there are duplicate service names [#9099](https://github.com/badges/shields/issues/9099)
+- [SourceForge] Added badges for SourceForge [#9078](https://github.com/badges/shields/issues/9078) [#9102](https://github.com/badges/shields/issues/9102)
+- crates: Use `?include=` to reduce crates.io backend load [#9081](https://github.com/badges/shields/issues/9081)
+- Dependency updates
+
 ## server-2023-04-02
 
 - [JenkinsCoverage] Update Jenkins Code Coverage API for new plugin version [#9010](https://github.com/badges/shields/issues/9010)

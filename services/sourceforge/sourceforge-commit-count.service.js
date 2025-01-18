@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { BaseJsonService } from '../index.js'
+import { BaseJsonService, pathParams } from '../index.js'
 import { metric } from '../text-formatters.js'
 
 const schema = Joi.object({
@@ -14,17 +14,17 @@ export default class SourceforgeCommitCount extends BaseJsonService {
     pattern: ':project',
   }
 
-  static examples = [
-    {
-      title: 'SourceForge commit count',
-      namedParams: {
-        project: 'guitarix',
+  static openApi = {
+    '/sourceforge/commit-count/{project}': {
+      get: {
+        summary: 'SourceForge Commit Count',
+        parameters: pathParams({
+          name: 'project',
+          example: 'guitarix',
+        }),
       },
-      staticPreview: this.render({
-        commitCount: 1365,
-      }),
     },
-  ]
+  }
 
   static defaultBadgeData = { label: 'commit count' }
 
@@ -39,7 +39,7 @@ export default class SourceforgeCommitCount extends BaseJsonService {
     return this._requestJson({
       url: `https://sourceforge.net/rest/p/${project}/git`,
       schema,
-      errorMessages: {
+      httpErrors: {
         404: 'project not found',
       },
     })

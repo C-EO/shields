@@ -16,7 +16,12 @@ import { makeSend } from '../base-service/legacy-result-sender.js'
 import { handleRequest } from '../base-service/legacy-request-handler.js'
 import { clearResourceCache } from '../base-service/resource-cache.js'
 import { rasterRedirectUrl } from '../badge-urls/make-badge-url.js'
-import { fileSize, nonNegativeInteger } from '../../services/validators.js'
+import {
+  fileSize,
+  nonNegativeInteger,
+  optionalUrl,
+  url as requiredUrl,
+} from '../../services/validators.js'
 import log from './log.js'
 import PrometheusMetrics from './prometheus-metrics.js'
 import InfluxMetrics from './influx-metrics.js'
@@ -54,8 +59,6 @@ const Joi = originalJoi
     },
   }))
 
-const optionalUrl = Joi.string().uri({ scheme: ['http', 'https'] })
-const requiredUrl = optionalUrl.required()
 const origins = Joi.arrayFromString().items(Joi.string().origin())
 const defaultService = Joi.object({ authorizedOrigins: origins }).default({
   authorizedOrigins: [],
@@ -65,11 +68,11 @@ const publicConfigSchema = Joi.object({
   bind: {
     port: Joi.alternatives().try(
       Joi.number().port(),
-      Joi.string().pattern(/^\\\\\.\\pipe\\.+$/)
+      Joi.string().pattern(/^\\\\\.\\pipe\\.+$/),
     ),
     address: Joi.alternatives().try(
       Joi.string().ip().required(),
-      Joi.string().hostname().required()
+      Joi.string().hostname().required(),
     ),
   },
   metrics: {
@@ -128,6 +131,7 @@ const publicConfigSchema = Joi.object({
       },
       restApiVersion: Joi.date().raw().required(),
     },
+    gitea: defaultService,
     gitlab: defaultService,
     jira: defaultService,
     jenkins: Joi.object({
@@ -138,6 +142,9 @@ const publicConfigSchema = Joi.object({
     nexus: defaultService,
     npm: defaultService,
     obs: defaultService,
+    pypi: {
+      baseUri: requiredUrl,
+    },
     sonar: defaultService,
     teamcity: defaultService,
     weblate: defaultService,
@@ -154,19 +161,23 @@ const publicConfigSchema = Joi.object({
       path.dirname(fileURLToPath(import.meta.url)),
       '..',
       '..',
-      'public'
-    )
+      'public',
+    ),
   ),
   requireCloudflare: Joi.boolean().required(),
 }).required()
 
 const privateConfigSchema = Joi.object({
   azure_devops_token: Joi.string(),
+  curseforge_api_key: Joi.string(),
   discord_bot_token: Joi.string(),
+  dockerhub_username: Joi.string(),
+  dockerhub_pat: Joi.string(),
   drone_token: Joi.string(),
   gh_client_id: Joi.string(),
   gh_client_secret: Joi.string(),
   gh_token: Joi.string(),
+  gitea_token: Joi.string(),
   gitlab_token: Joi.string(),
   jenkins_user: Joi.string(),
   jenkins_pass: Joi.string(),
@@ -183,7 +194,11 @@ const privateConfigSchema = Joi.object({
   obs_user: Joi.string(),
   obs_pass: Joi.string(),
   redis_url: Joi.string().uri({ scheme: ['redis', 'rediss'] }),
+  opencollective_token: Joi.string(),
+  pepy_key: Joi.string(),
   postgres_url: Joi.string().uri({ scheme: 'postgresql' }),
+  reddit_client_id: Joi.string(),
+  reddit_client_secret: Joi.string(),
   sentry_dsn: Joi.string(),
   sl_insight_userUuid: Joi.string(),
   sl_insight_apiToken: Joi.string(),
@@ -193,7 +208,6 @@ const privateConfigSchema = Joi.object({
   teamcity_pass: Joi.string(),
   twitch_client_id: Joi.string(),
   twitch_client_secret: Joi.string(),
-  wheelmap_token: Joi.string(),
   influx_username: Joi.string(),
   influx_password: Joi.string(),
   weblate_api_key: Joi.string(),
@@ -236,7 +250,7 @@ class Server {
     const publicConfig = Joi.attempt(config.public, publicConfigSchema)
     const privateConfig = this.validatePrivateConfig(
       config.private,
-      privateConfigSchema
+      privateConfigSchema,
     )
     // We want to require an username and a password for the influx metrics
     // only if the influx metrics are enabled. The private config schema
@@ -245,7 +259,7 @@ class Server {
     if (publicConfig.metrics.influx && publicConfig.metrics.influx.enabled) {
       this.validatePrivateConfig(
         config.private,
-        privateMetricsInfluxConfigSchema
+        privateMetricsInfluxConfigSchema,
       )
     }
     this.config = {
@@ -270,7 +284,7 @@ class Server {
           Object.assign({}, publicConfig.metrics.influx, {
             username: privateConfig.influx_username,
             password: privateConfig.influx_password,
-          })
+          }),
         )
       }
     }
@@ -283,8 +297,8 @@ class Server {
       const badPaths = e.details.map(({ path }) => path)
       throw Error(
         `Private configuration is invalid. Check these paths: ${badPaths.join(
-          ','
-        )}`
+          ',',
+        )}`,
       )
     }
   }
@@ -350,32 +364,35 @@ class Server {
       makeSend(
         'svg',
         request.res,
-        end
+        end,
       )(
         makeBadge({
           label: '410',
           message: `${format} no longer available`,
           color: 'lightgray',
           format: 'svg',
-        })
+        }),
       )
     })
 
     if (!rasterUrl) {
-      camp.route(/\.png$/, (query, match, end, request) => {
-        makeSend(
-          'svg',
-          request.res,
-          end
-        )(
-          makeBadge({
-            label: '404',
-            message: 'raster badges not available',
-            color: 'lightgray',
-            format: 'svg',
-          })
-        )
-      })
+      camp.route(
+        /^\/((?!img|assets\/)).*\.png$/,
+        (query, match, end, request) => {
+          makeSend(
+            'svg',
+            request.res,
+            end,
+          )(
+            makeBadge({
+              label: '404',
+              message: 'raster badges not available',
+              color: 'lightgray',
+              format: 'svg',
+            }),
+          )
+        },
+      )
     }
 
     camp.notfound(/(\.svg|\.json|)$/, (query, match, end, request) => {
@@ -385,14 +402,14 @@ class Server {
       makeSend(
         format,
         request.res,
-        end
+        end,
       )(
         makeBadge({
           label: '404',
           message: 'badge not found',
           color: 'red',
           format,
-        })
+        }),
       )
     })
   }
@@ -412,18 +429,21 @@ class Server {
 
     if (rasterUrl) {
       // Redirect to the raster server for raster versions of modern badges.
-      camp.route(/\.png$/, (queryParams, match, end, ask) => {
-        ask.res.statusCode = 301
-        ask.res.setHeader(
-          'Location',
-          rasterRedirectUrl({ rasterUrl }, ask.req.url)
-        )
+      camp.route(
+        /^\/((?!img|assets\/)).*\.png$/,
+        (queryParams, match, end, ask) => {
+          ask.res.statusCode = 301
+          ask.res.setHeader(
+            'Location',
+            rasterRedirectUrl({ rasterUrl }, ask.req.url),
+          )
 
-        const cacheDuration = (30 * 24 * 3600) | 0 // 30 days.
-        ask.res.setHeader('Cache-Control', `max-age=${cacheDuration}`)
+          const cacheDuration = (30 * 24 * 3600) | 0 // 30 days.
+          ask.res.setHeader('Cache-Control', `max-age=${cacheDuration}`)
 
-        ask.res.end()
-      })
+          ask.res.end()
+        },
+      )
     }
 
     if (redirectUrl) {
@@ -459,8 +479,8 @@ class Server {
           rasterUrl: config.public.rasterUrl,
           private: config.private,
           public: config.public,
-        }
-      )
+        },
+      ),
     )
   }
 
@@ -525,9 +545,12 @@ class Server {
       }
     }
 
-    // https://github.com/badges/shields/issues/3273
     camp.handle((req, res, next) => {
+      // https://github.com/badges/shields/issues/3273
       res.setHeader('Access-Control-Allow-Origin', '*')
+      // https://github.com/badges/shields/issues/10419
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin')
+
       next()
     })
 

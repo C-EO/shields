@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import { pathParams } from '../index.js'
 import {
   renderQuestionsBadge,
   StackExchangeBase,
@@ -10,7 +11,7 @@ const tagSchema = Joi.object({
     .items(
       Joi.object({
         count: Joi.number().min(0).required(),
-      })
+      }),
     )
     .required(),
 }).required()
@@ -21,18 +22,23 @@ export default class StackExchangeQuestions extends StackExchangeBase {
     pattern: ':stackexchangesite/t/:query',
   }
 
-  static examples = [
-    {
-      title: 'Stack Exchange questions',
-      namedParams: { stackexchangesite: 'stackoverflow', query: 'gson' },
-      staticPreview: this.render({
-        stackexchangesite: 'stackoverflow',
-        query: 'gson',
-        numValue: 10,
-      }),
-      keywords: ['stackexchange', 'stackoverflow'],
+  static openApi = {
+    '/stackexchange/{stackexchangesite}/t/{query}': {
+      get: {
+        summary: 'Stack Exchange questions',
+        parameters: pathParams(
+          {
+            name: 'stackexchangesite',
+            example: 'stackoverflow',
+          },
+          {
+            name: 'query',
+            example: 'gson',
+          },
+        ),
+      },
     },
-  ]
+  }
 
   static render(props) {
     return renderQuestionsBadge({

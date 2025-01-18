@@ -2,7 +2,7 @@ import Joi from 'joi'
 import dayjs from 'dayjs'
 import { renderDownloadsBadge } from '../downloads.js'
 import { nonNegativeInteger } from '../validators.js'
-import { BaseJsonService } from '../index.js'
+import { BaseJsonService, pathParams } from '../index.js'
 
 const schema = Joi.object({
   total: nonNegativeInteger,
@@ -31,37 +31,41 @@ export default class SourceforgeDownloads extends BaseJsonService {
   static category = 'downloads'
 
   static route = {
-    base: 'sourceforge/downloads',
-    pattern: ':interval(dt|dm|dw|dd)/:project/:folder*',
+    base: 'sourceforge',
+    pattern: ':interval(dd|dw|dm|dt)/:project/:folder*',
   }
 
-  static examples = [
-    {
-      title: 'SourceForge Downloads',
-      pattern: ':interval(dt|dm|dw|dd)/:project',
-      namedParams: {
-        interval: 'dm',
-        project: 'sevenzip',
+  static openApi = {
+    '/sourceforge/{interval}/{project}': {
+      get: {
+        summary: 'SourceForge Downloads',
+        parameters: pathParams(
+          {
+            name: 'interval',
+            example: 'dm',
+            description: 'Daily, Weekly, Monthly, or Total downloads',
+            schema: { type: 'string', enum: this.getEnum('interval') },
+          },
+          { name: 'project', example: 'sevenzip' },
+        ),
       },
-      staticPreview: this.render({
-        downloads: 215990,
-        interval: 'dm',
-      }),
     },
-    {
-      title: 'SourceForge Downloads (folder)',
-      pattern: ':interval(dt|dm|dw|dd)/:project/:folder',
-      namedParams: {
-        interval: 'dm',
-        project: 'arianne',
-        folder: 'stendhal',
+    '/sourceforge/{interval}/{project}/{folder}': {
+      get: {
+        summary: 'SourceForge Downloads (folder)',
+        parameters: pathParams(
+          {
+            name: 'interval',
+            example: 'dm',
+            description: 'Daily, Weekly, Monthly, or Total downloads',
+            schema: { type: 'string', enum: this.getEnum('interval') },
+          },
+          { name: 'project', example: 'arianne' },
+          { name: 'folder', example: 'stendhal' },
+        ),
       },
-      staticPreview: this.render({
-        downloads: 550,
-        interval: 'dm',
-      }),
     },
-  ]
+  }
 
   static defaultBadgeData = { label: 'sourceforge' }
 
@@ -91,7 +95,7 @@ export default class SourceforgeDownloads extends BaseJsonService {
       schema,
       url,
       options,
-      errorMessages: {
+      httpErrors: {
         404: 'project not found',
       },
     })

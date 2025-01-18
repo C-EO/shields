@@ -14,12 +14,12 @@ jobs:
     if: github.actor != 'dependabot[bot]' && github.actor != 'repo-ranger[bot]'
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Danger
         run: npm run danger ci

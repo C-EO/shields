@@ -15,7 +15,9 @@ export default class SqlTokenPersistence {
     } else {
       this.pool = new pg.Pool({ connectionString: this.url })
     }
-    const result = await this.pool.query(`SELECT token FROM ${this.table};`)
+    const result = await this.pool.query(
+      `SELECT token FROM ${this.table} ORDER BY RANDOM();`,
+    )
     return result.rows.map(row => row.token)
   }
 
@@ -28,14 +30,14 @@ export default class SqlTokenPersistence {
   async onTokenAdded(token) {
     return await this.pool.query(
       `INSERT INTO ${this.table} (token) VALUES ($1::text) ON CONFLICT (token) DO NOTHING;`,
-      [token]
+      [token],
     )
   }
 
   async onTokenRemoved(token) {
     return await this.pool.query(
       `DELETE FROM ${this.table} WHERE token=$1::text;`,
-      [token]
+      [token],
     )
   }
 

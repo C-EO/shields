@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Cache Cypress binary
         id: cache-cypress
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-cypress
         with:
@@ -26,27 +26,24 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          node-version: 16
+          node-version: 20
           cypress: true
-
-      - name: Frontend build
-        run: GATSBY_BASE_URL=http://localhost:8080 npm run build
 
       - name: Run tests
         env:
           GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-        run: npm run e2e-on-build
+        run: npm run e2e
 
       - name: Archive videos
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: videos
           path: cypress/videos
 
       - name: Archive screenshots
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: screenshots
           path: cypress/screenshots

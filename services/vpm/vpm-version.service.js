@@ -1,10 +1,10 @@
 import Joi from 'joi'
-import { optionalUrl } from '../validators.js'
+import { url } from '../validators.js'
 import { latest, renderVersionBadge } from '../version.js'
-import { BaseJsonService, NotFound } from '../index.js'
+import { BaseJsonService, NotFound, pathParam, queryParam } from '../index.js'
 
 const queryParamSchema = Joi.object({
-  repository_url: optionalUrl.required(),
+  repository_url: url,
   include_prereleases: Joi.equal(''),
 }).required()
 
@@ -14,7 +14,7 @@ const schema = Joi.object({
       /./,
       Joi.object({
         versions: Joi.object().pattern(/./, Joi.object()).min(1).required(),
-      }).required()
+      }).required(),
     )
     .required(),
 }).required()
@@ -28,29 +28,30 @@ export default class VpmVersion extends BaseJsonService {
     queryParamSchema,
   }
 
-  static examples = [
-    {
-      title: 'VPM Package Version',
-      namedParams: {
-        packageId: 'com.vrchat.udonsharp',
+  static openApi = {
+    '/vpm/v/{packageId}': {
+      get: {
+        summary: 'VPM Package Version',
+        description: 'VPM is the VRChat Package Manager',
+        parameters: [
+          pathParam({
+            name: 'packageId',
+            example: 'com.vrchat.udonsharp',
+          }),
+          queryParam({
+            name: 'repository_url',
+            example: 'https://packages.vrchat.com/curated?download',
+            required: true,
+          }),
+          queryParam({
+            name: 'include_prereleases',
+            schema: { type: 'boolean' },
+            example: null,
+          }),
+        ],
       },
-      queryParams: {
-        repository_url: 'https://packages.vrchat.com/curated?download',
-      },
-      staticPreview: renderVersionBadge({ version: '1.1.6' }),
     },
-    {
-      title: 'VPM Package Version (including prereleases)',
-      namedParams: {
-        packageId: 'com.vrchat.udonsharp',
-      },
-      queryParams: {
-        repository_url: 'https://packages.vrchat.com/curated?download',
-        include_prereleases: null,
-      },
-      staticPreview: renderVersionBadge({ version: '1.1.6' }),
-    },
-  ]
+  }
 
   static defaultBadgeData = {
     label: 'vpm',
@@ -65,7 +66,7 @@ export default class VpmVersion extends BaseJsonService {
 
   async handle(
     { packageId },
-    { repository_url: repositoryUrl, include_prereleases: prereleases }
+    { repository_url: repositoryUrl, include_prereleases: prereleases },
   ) {
     const data = await this.fetch({ repositoryUrl })
     const pkg = data.packages[packageId]

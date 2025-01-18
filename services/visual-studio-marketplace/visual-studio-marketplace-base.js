@@ -14,7 +14,7 @@ const extensionQuerySchema = Joi.object({
                   Joi.object({
                     statisticName: Joi.string().required(),
                     value: Joi.number().required(),
-                  })
+                  }),
                 )
                 .default([]),
               versions: Joi.array()
@@ -26,19 +26,19 @@ const extensionQuerySchema = Joi.object({
                         Joi.object({
                           key: Joi.string().required(),
                           value: Joi.any().required(),
-                        })
+                        }),
                       )
                       .default([]),
-                  })
+                  }),
                 )
                 .min(1)
                 .required(),
               releaseDate: Joi.string().required(),
               lastUpdated: Joi.string().required(),
-            })
+            }),
           )
           .required(),
-      })
+      }),
     )
     .required(),
 }).required()
@@ -52,15 +52,6 @@ const statisticSchema = Joi.object().keys({
 })
 
 export default class VisualStudioMarketplaceBase extends BaseJsonService {
-  static keywords = [
-    'vscode',
-    'tfs',
-    'vsts',
-    'visual-studio-marketplace',
-    'vs-marketplace',
-    'vscode-marketplace',
-  ]
-
   static defaultBadgeData = {
     label: 'vs marketplace',
     color: 'blue',
@@ -95,7 +86,7 @@ export default class VisualStudioMarketplaceBase extends BaseJsonService {
       schema: extensionQuerySchema,
       url,
       options,
-      errorMessages: {
+      httpErrors: {
         400: 'invalid extension id',
       },
     })

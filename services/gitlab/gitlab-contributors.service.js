@@ -1,7 +1,8 @@
 import Joi from 'joi'
+import { pathParam, queryParam } from '../index.js'
 import { optionalUrl, nonNegativeInteger } from '../validators.js'
 import { renderContributorBadge } from '../contributor-count.js'
-import { documentation, errorMessagesFor } from './gitlab-helper.js'
+import { description, httpErrorsFor } from './gitlab-helper.js'
 import GitLabBase from './gitlab-base.js'
 
 const schema = Joi.object({ 'x-total': nonNegativeInteger }).required()
@@ -18,25 +19,24 @@ export default class GitlabContributors extends GitLabBase {
     queryParamSchema,
   }
 
-  static examples = [
-    {
-      title: 'GitLab contributors',
-      namedParams: {
-        project: 'gitlab-org/gitlab',
+  static openApi = {
+    '/gitlab/contributors/{project}': {
+      get: {
+        summary: 'GitLab Contributors',
+        description,
+        parameters: [
+          pathParam({
+            name: 'project',
+            example: 'gitlab-org/gitlab',
+          }),
+          queryParam({
+            name: 'gitlab_url',
+            example: 'https://gitlab.com',
+          }),
+        ],
       },
-      staticPreview: this.render({ contributorCount: 418 }),
-      documentation,
     },
-    {
-      title: 'GitLab (self-managed) contributors',
-      queryParams: { gitlab_url: 'https://jihulab.com' },
-      namedParams: {
-        project: 'gitlab-cn/gitlab',
-      },
-      staticPreview: this.render({ contributorCount: 415 }),
-      documentation,
-    },
-  ]
+  }
 
   static defaultBadgeData = { label: 'contributors' }
 
@@ -49,11 +49,11 @@ export default class GitlabContributors extends GitLabBase {
     const { res } = await this._request(
       this.authHelper.withBearerAuthHeader({
         url: `${baseUrl}/api/v4/projects/${encodeURIComponent(
-          project
+          project,
         )}/repository/contributors`,
         options: { searchParams: { page: '1', per_page: '1' } },
-        errorMessages: errorMessagesFor('project not found'),
-      })
+        httpErrors: httpErrorsFor('project not found'),
+      }),
     )
     const data = this.constructor._validate(res.headers, schema)
     // The total number of contributors is in the `x-total` field in the headers.

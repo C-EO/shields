@@ -20,6 +20,29 @@ const exampleXml = `<?xml version="1.0"?>
 </catalog>
 `
 
+const exampleHtml = `<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+      <h1>Herman Melville - Moby-Dick</h1>
+      <div>
+        <p>
+          Availing himself of the mild, summer-cool weather that now reigned in these
+          latitudes, and in preparation for the peculiarly active pursuits shortly to
+          be anticipated, Perth, the begrimed, blistered old blacksmith, had not
+          removed his portable forge to the hold again, after concluding his
+          contributory work for Ahab's leg, but still retained it on deck, fast lashed
+          to ringbolts by the foremast; being now almost incessantly invoked by the
+          headsmen, and harpooneers, and bowsmen to do some little job for them;
+          altering, or repairing, or new shaping their various weapons and boat
+          furniture.
+        </p>
+      </div>
+  </body>
+</html>
+`
+
 describe('DynamicXml', function () {
   describe('transform()', function () {
     beforeEach(function () {
@@ -35,7 +58,7 @@ describe('DynamicXml', function () {
         DynamicXml.prototype.transform({
           pathExpression: '//book/title',
           buffer: exampleXml,
-        })
+        }),
       )
         .to.throw(InvalidResponse)
         .with.property('prettyMessage', 'unsupported query')
@@ -52,7 +75,7 @@ describe('DynamicXml', function () {
     given({ pathExpression: '//book/title/text()', buffer: exampleXml }).expect(
       {
         values: ["XML Developer's Guide", 'Midnight Rain'],
-      }
+      },
     )
     given({
       pathExpression: 'string(//book[1]/title)',
@@ -125,6 +148,13 @@ describe('DynamicXml', function () {
       buffer: exampleXml,
     }).expect({
       values: ["XML Developer's Guide", '44.95'],
+    })
+    given({
+      pathExpression: '//h1[1]',
+      buffer: exampleHtml,
+      contentType: 'text/html',
+    }).expect({
+      values: ['Herman Melville - Moby-Dick'],
     })
   })
 })
