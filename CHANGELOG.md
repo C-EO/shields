@@ -4,6 +4,12 @@ Note: this changelog is for the shields.io server. The changelog for the badge-m
 
 ---
 
+## server-2026-05-15
+
+- feat: add [SdkmanVersion] badge [#11806](https://github.com/badges/shields/issues/11806)
+- feat: improve badges color contrast [#11783](https://github.com/badges/shields/issues/11783)
+- Dependency updates
+
 ## server-2026-04-15
 
 **Noteable changes:**
