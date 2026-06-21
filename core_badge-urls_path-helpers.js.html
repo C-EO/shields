@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: core/base-service/graphql</title>
+    <title>JSDoc: Source: core/badge-urls/path-helpers.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,272 +17,41 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: core/base-service/graphql</h1>
+    <h1 class="page-title">Source: core/badge-urls/path-helpers.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_graphql.js.html">core/base-service/graphql.js</a>, <a href="core_base-service_graphql.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="~mergeQueries"><span class="type-signature">(inner) </span>mergeQueries<span class="signature">(&hellip;queries)</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Utility function to merge two graphql queries together
-This is basically copied from
-<a href="https://www.npmjs.com/package/graphql-query-merge">graphql-query-merge</a>
-but can't use that due to incorrect packaging.</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>queries</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>queries to merge</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="core_base-service_graphql.js.html">core/base-service/graphql.js</a>, <a href="core_base-service_graphql.js.html#line14">line 14</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>merged query</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Escape a string according to the badge format encoding scheme. Underscores
+ * and dashes in the input are decoded using the rules from
+ * https://github.com/espadrine/gh-badges/issues/12#issuecomment-31518129
+ *
+ * Single underscores become spaces, double underscores become single
+ * underscores, and double dashes become single dashes.
+ *
+ * @param {string} t - The format-encoded string to decode.
+ * @returns {string} The decoded string.
+ */
+function escapeFormat(t) {
+  return (
+    t
+      // Single underscore.
+      .replace(/(^|[^_])((?:__)*)_(?!_)/g, '$1$2 ')
+      // Double underscore and double dash.
+      .replace(/__/g, '_')
+      .replace(/--/g, '-')
+  )
+}
+
+export { escapeFormat }
+</code></pre>
+        </article>
+    </section>
 
 
 
