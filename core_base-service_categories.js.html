@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: services/pipenv-helpers.js</title>
+    <title>JSDoc: Source: core/base-service/categories.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: services/pipenv-helpers.js</h1>
+    <h1 class="page-title">Source: core/base-service/categories.js</h1>
 
     
 
@@ -27,91 +27,39 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Common functions and utilities for tasks related to pipenv
+ * Helpers for validating service category identifiers.
  *
  * @module
  */
 
 import Joi from 'joi'
-import { InvalidParameter } from './index.js'
+import categories from '../../services/categories.js'
+
+const isRealCategory = Joi.equal(...categories.map(({ id }) => id)).required()
 
 /**
- * Joi schema for validating dependency.
+ * Joi validator for service categories registered by Shields, including the
+ * special `debug`, `dynamic`, and `static` categories.
  *
  * @type {Joi}
  */
-const isDependency = Joi.object({
-  version: Joi.string(),
-  ref: Joi.string(),
-}).required()
+const isValidCategory = Joi.alternatives()
+  .try(isRealCategory, Joi.equal('debug', 'dynamic', 'static').required())
+  .required()
 
 /**
- * Joi schema for validating lock file object.
- * Checks if the lock file object has required properties and the properties are valid.
+ * Assert that a value is a valid Shields service category.
  *
- * @type {Joi}
+ * @param {string} category - Service category identifier to validate.
+ * @param {string} [message] - Optional prefix for the validation error.
+ * @throws {Error} When the category is not recognized.
+ * @returns {void}
  */
-const isLockfile = Joi.object({
-  _meta: Joi.object({
-    requires: Joi.object({
-      python_version: Joi.string(),
-    }).required(),
-  }).required(),
-  default: Joi.object().pattern(Joi.string(), isDependency),
-  develop: Joi.object().pattern(Joi.string(), isDependency),
-}).required()
-
-/**
- * Determines the dependency version based on the dependency type.
- *
- * @param {object} attrs - Refer to individual attributes
- * @param {string} attrs.kind - Wanted dependency type ('dev' or 'default'), defaults to 'default'
- * @param {string} attrs.wantedDependency - Name of the wanted dependency
- * @param {object} attrs.lockfileData - Object containing lock file data
- * @throws {Error} - Error if unknown dependency type provided
- * @throws {InvalidParameter} - Error if wanted dependency is not present in lock file data
- * @throws {InvalidParameter} - Error if version or ref is not present for the wanted dependency
- * @returns {object} Object containing wanted dependency version or ref
- */
-function getDependencyVersion({
-  kind = 'default',
-  wantedDependency,
-  lockfileData,
-}) {
-  let dependenciesOfKind
-  if (kind === 'dev') {
-    dependenciesOfKind = lockfileData.develop
-  } else if (kind === 'default') {
-    dependenciesOfKind = lockfileData.default
-  } else {
-    throw Error(`Not very kind: ${kind}`)
-  }
-
-  if (!(wantedDependency in dependenciesOfKind)) {
-    throw new InvalidParameter({
-      prettyMessage: `${kind} dependency not found`,
-    })
-  }
-
-  const { version, ref } = dependenciesOfKind[wantedDependency]
-
-  if (version) {
-    // Strip the `==` which is always present.
-    return { version: version.replace('==', '') }
-  } else if (ref) {
-    if (ref.length === 40) {
-      // assume it is a commit hash
-      return { ref: ref.substring(0, 7) }
-    }
-    return { ref } // tag
-  } else {
-    throw new InvalidParameter({
-      prettyMessage: `No version or ref for ${wantedDependency}`,
-    })
-  }
+function assertValidCategory(category, message = undefined) {
+  Joi.assert(category, isValidCategory, message)
 }
 
-export { isLockfile, getDependencyVersion }
+export { isValidCategory, assertValidCategory }
 </code></pre>
         </article>
     </section>

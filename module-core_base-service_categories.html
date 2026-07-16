@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: services/pipenv-helpers.js</title>
+    <title>JSDoc: Module: core/base-service/categories</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,104 +17,404 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: services/pipenv-helpers.js</h1>
+    <h1 class="page-title">Module: core/base-service/categories</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Common functions and utilities for tasks related to pipenv
- *
- * @module
- */
+</header>
 
-import Joi from 'joi'
-import { InvalidParameter } from './index.js'
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Helpers for validating service category identifiers.</p></div>
+        
 
-/**
- * Joi schema for validating dependency.
- *
- * @type {Joi}
- */
-const isDependency = Joi.object({
-  version: Joi.string(),
-  ref: Joi.string(),
-}).required()
+        
 
-/**
- * Joi schema for validating lock file object.
- * Checks if the lock file object has required properties and the properties are valid.
- *
- * @type {Joi}
- */
-const isLockfile = Joi.object({
-  _meta: Joi.object({
-    requires: Joi.object({
-      python_version: Joi.string(),
-    }).required(),
-  }).required(),
-  default: Joi.object().pattern(Joi.string(), isDependency),
-  develop: Joi.object().pattern(Joi.string(), isDependency),
-}).required()
 
-/**
- * Determines the dependency version based on the dependency type.
- *
- * @param {object} attrs - Refer to individual attributes
- * @param {string} attrs.kind - Wanted dependency type ('dev' or 'default'), defaults to 'default'
- * @param {string} attrs.wantedDependency - Name of the wanted dependency
- * @param {object} attrs.lockfileData - Object containing lock file data
- * @throws {Error} - Error if unknown dependency type provided
- * @throws {InvalidParameter} - Error if wanted dependency is not present in lock file data
- * @throws {InvalidParameter} - Error if version or ref is not present for the wanted dependency
- * @returns {object} Object containing wanted dependency version or ref
- */
-function getDependencyVersion({
-  kind = 'default',
-  wantedDependency,
-  lockfileData,
-}) {
-  let dependenciesOfKind
-  if (kind === 'dev') {
-    dependenciesOfKind = lockfileData.develop
-  } else if (kind === 'default') {
-    dependenciesOfKind = lockfileData.default
-  } else {
-    throw Error(`Not very kind: ${kind}`)
-  }
+<dl class="details">
 
-  if (!(wantedDependency in dependenciesOfKind)) {
-    throw new InvalidParameter({
-      prettyMessage: `${kind} dependency not found`,
-    })
-  }
+    
 
-  const { version, ref } = dependenciesOfKind[wantedDependency]
+    
 
-  if (version) {
-    // Strip the `==` which is always present.
-    return { version: version.replace('==', '') }
-  } else if (ref) {
-    if (ref.length === 40) {
-      // assume it is a commit hash
-      return { ref: ref.substring(0, 7) }
-    }
-    return { ref } // tag
-  } else {
-    throw new InvalidParameter({
-      prettyMessage: `No version or ref for ${wantedDependency}`,
-    })
-  }
-}
+    
 
-export { isLockfile, getDependencyVersion }
-</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="core_base-service_categories.js.html">core/base-service/categories.js</a>, <a href="core_base-service_categories.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~isValidCategory"><span class="type-signature">(inner, constant) </span>isValidCategory<span class="type-signature"> :Joi</span></h4>
+
+
+
+
+<div class="description">
+    <p>Joi validator for service categories registered by Shields, including the
+special <code>debug</code>, <code>dynamic</code>, and <code>static</code> categories.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Joi</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="core_base-service_categories.js.html">core/base-service/categories.js</a>, <a href="core_base-service_categories.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~assertValidCategory"><span class="type-signature">(inner) </span>assertValidCategory<span class="signature">(category, message<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Assert that a value is a valid Shields service category.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>category</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Service category identifier to validate.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional prefix for the validation error.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="core_base-service_categories.js.html">core/base-service/categories.js</a>, <a href="core_base-service_categories.js.html#line30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>When the category is not recognized.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">Error</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">void</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
